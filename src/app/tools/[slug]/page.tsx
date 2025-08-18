@@ -24,7 +24,7 @@ export default function ToolPage({ params }: ToolPageProps) {
   const ToolComponent = tool.component;
 
   return (
-    <div className="container mx-auto max-w-4xl px-4 py-8 md:py-12">
+    <div className="container mx-auto px-4 py-8 md:py-12">
       <div className="text-center mb-10">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
           {tool.name}
@@ -34,7 +34,7 @@ export default function ToolPage({ params }: ToolPageProps) {
         </p>
       </div>
 
-      <Card className="bg-white/5 backdrop-blur-sm border border-white/10">
+      <Card className="bg-white/5 backdrop-blur-sm border border-white/10 w-full">
         <CardContent className="p-4 sm:p-6 md:p-8">
           <ToolComponent />
         </CardContent>
