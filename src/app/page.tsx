@@ -17,8 +17,8 @@ const FloatingIcon = ({
   className?: string;
  }) => {
   return (
-    <div className={cn("absolute rounded-full p-3 glass-card animate-float", className)}>
-      <Icon className="w-8 h-8 text-primary/80" />
+    <div className={cn("absolute rounded-full p-2 border-2 border-cyan-400/30 animate-pulse shadow-[0_0_20px_2px] shadow-cyan-400/30", className)}>
+      <Icon className="w-6 h-6 text-cyan-400" />
     </div>
   );
 };
@@ -44,7 +44,7 @@ export default function Home() {
   }
 
   return (
-    <div className="container mx-auto px-8 py-12 md:py-16">
+    <div className="container mx-auto px-4 py-12 md:py-16">
       <section className="relative text-center py-16 md:py-24 flex flex-col items-center overflow-hidden">
         
         {/* Floating Icons Background */}
@@ -57,16 +57,16 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="mb-3">
-          <span className="text-sm font-bold text-primary">AlgroAI</span>
+        <div className="mb-4">
+          <span className="text-lg font-bold" style={{color: '#00CFFF'}}>AlgoAI</span>
         </div>
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground animate-gradient-text bg-gradient-to-r from-primary via-purple-400 to-primary bg-clip-text text-transparent">
+        <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#00C6FF] to-[#B14EFF]">
           All your digital tools.
           <br />
           One beautiful place.
         </h1>
-        <p className="mt-4 text-lg md:text-xl text-foreground/70 max-w-3xl mx-auto">
-          Convert, edit, and iterate. Fast. Friendly. Magical.
+        <p className="mt-4 text-lg md:text-xl max-w-3xl mx-auto" style={{color: '#CCCCCC'}}>
+          Convert, edit, and create in seconds. Fast. Friendly. Magical.
         </p>
         <div className="mt-8 flex w-full max-w-2xl flex-col items-center justify-center gap-4">
             <form id="hero-form" onSubmit={handleSearchSubmit} className="relative w-full group">
@@ -74,26 +74,29 @@ export default function Home() {
                 id="hero-search"
                 type="search"
                 placeholder="Find your tool..."
-                className="w-full pl-4 pr-12 text-lg h-14 rounded-full bg-white/5 backdrop-blur-sm border-white/10 focus-visible:ring-offset-0 focus-visible:ring-2 focus-visible:ring-primary/80 transition-shadow"
+                className="w-full pl-4 pr-12 text-lg h-14 rounded-full bg-[#1A1A1C] border-white/10 focus-visible:ring-offset-0 focus-visible:ring-2 focus-visible:ring-primary/80 transition-shadow shadow-inner placeholder:text-[#777777]"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 />
                  <Button
                   type="submit"
                   size="icon"
-                  className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 bg-transparent"
                   variant="ghost"
                 >
-                  <Search className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  <Search className="h-5 w-5 text-muted-foreground group-hover:text-cyan-400 group-hover:[filter:drop-shadow(0_0_8px_#00E6FF)] transition-all" />
                 </Button>
             </form>
             <Link href="#tools" onClick={handleScroll} passHref>
-              <Button size="lg" className="font-bold text-lg group transition-transform active:scale-95">
+              <Button size="lg" className="font-bold text-lg group transition-all duration-300 active:scale-95 bg-[#00AFFF] hover:bg-[#00AFFF] hover:shadow-[0_0_20px_#00E6FF]">
                   Explore Tools
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
         </div>
+         <p className="mt-8 text-sm text-muted-foreground">
+          ✨ Trusted by creators, students & professionals worldwide.
+        </p>
       </section>
 
       <ToolDashboard />
