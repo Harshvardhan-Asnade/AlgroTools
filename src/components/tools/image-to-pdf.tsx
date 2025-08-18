@@ -39,7 +39,7 @@ export default function ImageToPdfTool() {
     const newImageFiles = files
       .filter((file) => file.type.startsWith("image/"))
       .map((file) => ({
-        id: self.crypto.randomUUID(),
+        id: crypto.randomUUID(),
         file,
         preview: URL.createObjectURL(file),
       }));
@@ -71,11 +71,11 @@ export default function ImageToPdfTool() {
     try {
       const doc = new jsPDF();
       for (let i = 0; i < imageFiles.length; i++) {
-        const imageFile = imageFiles[i].file;
+        const imageFile = imageFiles[i];
         const img = new Image();
-        img.src = imageFiles[i].preview;
+        img.src = imageFile.preview;
 
-        await new Promise<void>((resolve) => {
+        await new Promise<void>((resolve, reject) => {
           img.onload = () => {
             const pageInfo = doc.internal.pageSize;
             const pageWidth = pageInfo.getWidth();
@@ -84,7 +84,7 @@ export default function ImageToPdfTool() {
             const imgWidth = img.width;
             const imgHeight = img.height;
             
-            const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+            const ratio = Math.min((pageWidth * 0.9) / imgWidth, (pageHeight * 0.9) / imgHeight);
             
             const newWidth = imgWidth * ratio;
             const newHeight = imgHeight * ratio;
@@ -95,17 +95,22 @@ export default function ImageToPdfTool() {
             if (i > 0) {
               doc.addPage();
             }
-            doc.addImage(img.src, imageFile.type.split('/')[1].toUpperCase(), x, y, newWidth, newHeight);
+            // Pass the image source directly and let jsPDF handle the format.
+            doc.addImage(img.src, '', x, y, newWidth, newHeight);
             resolve();
+          };
+          img.onerror = (err) => {
+            console.error("Image loading error:", err);
+            reject(new Error(`Failed to load image: ${imageFile.file.name}`));
           };
         });
       }
       const uri = doc.output('datauristring');
       setPdfUrl(uri);
       toast({ title: "PDF Generated!", description: "Your PDF is ready for download." });
-    } catch (error) {
+    } catch (error: any) {
         console.error("PDF Generation Error:", error);
-        toast({ title: "PDF Generation Failed", description: "An unexpected error occurred.", variant: "destructive" });
+        toast({ title: "PDF Generation Failed", description: error.message || "An unexpected error occurred.", variant: "destructive" });
     } finally {
       setIsLoading(false);
     }
