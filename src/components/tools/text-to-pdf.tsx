@@ -1,10 +1,10 @@
 
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Loader2, Download, FileText, ZoomIn, ZoomOut, RefreshCw } from "lucide-react";
+import { Loader2, Download } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import jsPDF from 'jspdf';
 import { Slider } from "@/components/ui/slider";
@@ -22,31 +22,41 @@ export default function TextToPdfTool() {
   const [debouncedFontSize] = useDebounce(fontSize, 300);
 
   const generatePdf = useCallback(() => {
+    if (!debouncedText) {
+      setPdfUri(null);
+      return;
+    };
+
     setIsLoading(true);
     try {
-      const doc = new jsPDF({ orientation: 'p', unit: 'px', format: 'a4' });
-      const docWidth = doc.internal.pageSize.getWidth();
-      const margin = 20;
-      const usableWidth = docWidth - margin * 2;
-      
-      doc.setFontSize(debouncedFontSize);
-      
-      const lines = doc.splitTextToSize(debouncedText, usableWidth);
-      
-      let cursorY = margin;
-      const lineHeight = doc.getLineHeight(debouncedText) / doc.internal.scaleFactor;
+      // Use a worker or a timeout to prevent blocking the main thread for too long
+      setTimeout(() => {
+        const doc = new jsPDF({ orientation: 'p', unit: 'pt', format: 'a4' });
+        const docWidth = doc.internal.pageSize.getWidth();
+        const margin = 40;
+        const usableWidth = docWidth - margin * 2;
+        
+        doc.setFontSize(debouncedFontSize);
+        
+        const lines = doc.splitTextToSize(debouncedText, usableWidth);
+        
+        let cursorY = margin;
+        // Use pt for font size which is the default for jsPDF
+        const lineHeight = doc.getLineHeight(); 
 
-      lines.forEach((line: string) => {
-        if (cursorY + lineHeight > doc.internal.pageSize.getHeight() - margin) {
-          doc.addPage();
-          cursorY = margin;
-        }
-        doc.text(line, margin, cursorY);
-        cursorY += lineHeight;
-      });
+        lines.forEach((line: string) => {
+          if (cursorY + lineHeight > doc.internal.pageSize.getHeight() - margin) {
+            doc.addPage();
+            cursorY = margin;
+          }
+          doc.text(line, margin, cursorY);
+          cursorY += lineHeight;
+        });
 
-      const pdfDataUri = doc.output('datauristring');
-      setPdfUri(pdfDataUri);
+        const pdfDataUri = doc.output('datauristring');
+        setPdfUri(pdfDataUri);
+        setIsLoading(false);
+      }, 50); // Small delay to allow UI to update
 
     } catch (error) {
       console.error("PDF Generation Error:", error);
@@ -55,7 +65,6 @@ export default function TextToPdfTool() {
         description: "Could not generate PDF preview. Please try again.",
         variant: "destructive",
       });
-    } finally {
       setIsLoading(false);
     }
   }, [debouncedText, debouncedFontSize, toast]);
@@ -98,7 +107,7 @@ export default function TextToPdfTool() {
         </div>
         <Textarea
           placeholder="Start typing or paste your text here..."
-          className="min-h-[450px] text-base flex-grow"
+          className="min-h-[600px] text-base flex-grow"
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
@@ -111,9 +120,9 @@ export default function TextToPdfTool() {
       </div>
       <div className="flex flex-col gap-4">
         <Label>Live Preview</Label>
-        <div className="relative border rounded-lg bg-background/50 aspect-[210/297] min-h-[500px] flex-grow">
+        <div className="relative border rounded-lg bg-background/50 min-h-[650px] flex-grow">
             {isLoading && (
-                <div className="absolute inset-0 flex items-center justify-center bg-background/50 z-10">
+                <div className="absolute inset-0 flex items-center justify-center bg-background/80 z-10">
                     <Loader2 className="h-8 w-8 animate-spin text-primary" />
                 </div>
             )}
