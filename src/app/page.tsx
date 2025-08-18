@@ -3,10 +3,11 @@
 
 import ToolDashboard from '@/components/tool-dashboard';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, BrainCircuit, Code, FileImage, FileText, LucideProps } from 'lucide-react';
-import { ForwardRefExoticComponent, RefAttributes } from 'react';
+import { ArrowRight, BrainCircuit, Code, FileImage, FileText, LucideProps, Search } from 'lucide-react';
+import { ForwardRefExoticComponent, RefAttributes, useState } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { Input } from '@/components/ui/input';
 
 const FloatingIcon = ({ 
   Icon, 
@@ -24,6 +25,7 @@ const FloatingIcon = ({
 
 
 export default function Home() {
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
@@ -33,7 +35,27 @@ export default function Home() {
     elem?.scrollIntoView({
       behavior: "smooth",
     });
+
+    const searchInput = document.querySelector('#tools input[type="search"]') as HTMLInputElement;
+    if (searchInput) {
+      searchInput.value = searchQuery;
+      searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+      searchInput.focus();
+    }
   };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const toolsSection = document.getElementById('tools');
+    toolsSection?.scrollIntoView({ behavior: 'smooth' });
+
+    const searchInput = document.querySelector('#tools input[type="search"]') as HTMLInputElement;
+    if (searchInput) {
+      searchInput.value = searchQuery;
+      searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+      searchInput.focus();
+    }
+  }
 
   return (
     <div className="container mx-auto px-8 py-12 md:py-16">
@@ -60,16 +82,23 @@ export default function Home() {
         <p className="mt-4 text-lg md:text-xl text-foreground/70 max-w-3xl mx-auto">
           Convert, edit, and iterate. Fast. Friendly. Magical.
         </p>
-        <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="mt-8 flex w-full max-w-2xl flex-col items-center justify-center gap-4">
+            <form onSubmit={handleSearchSubmit} className="relative w-full">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <Input
+                type="search"
+                placeholder="Find your tool..."
+                className="w-full pl-12 text-lg h-14 rounded-full bg-white/5 backdrop-blur-sm border-white/10 focus-visible:ring-offset-0 focus-visible:ring-2 focus-visible:ring-primary/80 transition-shadow"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                />
+            </form>
             <Link href="#tools" onClick={handleScroll} passHref>
               <Button size="lg" className="font-bold text-lg group transition-transform active:scale-95">
                   Explore Tools
                   <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
-            <Button size="lg" variant="ghost" className="font-bold text-lg group transition-transform active:scale-95">
-                Try Demo 
-            </Button>
         </div>
       </section>
 
