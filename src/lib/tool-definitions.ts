@@ -96,6 +96,10 @@ import type { ComponentType, ForwardRefExoticComponent, RefAttributes } from "re
 import WordCounter from "@/components/tools/word-counter";
 import PlaceholderTool from "@/components/tools/placeholder-tool";
 import TextToPdfTool from "@/components/tools/text-to-pdf";
+import CaseConverter from "@/components/tools/case-converter";
+import JsonFormatter from "@/components/tools/json-formatter";
+import Base64Tool from "@/components/tools/base64-tool";
+import QrCodeGenerator from "@/components/tools/qr-code-generator";
 
 type IconComponent = ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
 
@@ -211,7 +215,7 @@ export const tools: Tool[] = [
   
   // Text Tools
   { slug: "word-counter", name: "Word Counter", description: "Count words, characters, and lines in text.", category: "text", icon: Type, component: WordCounter },
-  { slug: "case-converter", name: "Case Converter", description: "Convert text to various cases (upper, lower, etc.).", category: "text", icon: CaseSensitive, component: PlaceholderTool },
+  { slug: "case-converter", name: "Case Converter", description: "Convert text to various cases (upper, lower, etc.).", category: "text", icon: CaseSensitive, component: CaseConverter },
   { slug: "remove-extra-spaces", name: "Remove Extra Spaces", description: "Trim whitespace and remove line breaks.", category: "text", icon: Scissors, component: PlaceholderTool },
   { slug: "text-to-speech", name: "Text to Speech", description: "Convert text into spoken audio.", category: "text", icon: Volume2, component: PlaceholderTool },
   { slug: "speech-to-text", name: "Speech to Text", description: "Transcribe audio into text.", category: "text", icon: Mic, component: PlaceholderTool },
@@ -225,11 +229,11 @@ export const tools: Tool[] = [
   { slug: "text-encryption", name: "Text Encryption", description: "Encrypt and decrypt text messages.", category: "text", icon: Lock, component: PlaceholderTool },
   
   // Developer & Data Tools
-  { slug: "json-formatter", name: "JSON Formatter", description: "Format and validate JSON data.", category: "dev", icon: FileJson, component: PlaceholderTool },
+  { slug: "json-formatter", name: "JSON Formatter", description: "Format and validate JSON data.", category: "dev", icon: FileJson, component: JsonFormatter },
   { slug: "json-csv-converter", name: "JSON to CSV", description: "Convert between JSON and CSV formats.", category: "dev", icon: ArrowRightLeft, component: PlaceholderTool },
   { slug: "xml-formatter", name: "XML Formatter", description: "Format and validate XML data.", category: "dev", icon: Braces, component: PlaceholderTool },
   { slug: "regex-tester", name: "Regex Tester", description: "Test regular expressions.", category: "dev", icon: Regex, component: PlaceholderTool },
-  { slug: "base64-encoder", name: "Base64 Encoder/Decoder", description: "Encode and decode Base64 data.", category: "dev", icon: Waypoints, component: PlaceholderTool },
+  { slug: "base64-encoder", name: "Base64 Encoder/Decoder", description: "Encode and decode Base64 data.", category: "dev", icon: Waypoints, component: Base64Tool },
   { slug: "url-encoder", name: "URL Encoder/Decoder", description: "Encode and decode URL components.", category: "dev", icon: LinkIcon, component: PlaceholderTool },
   { slug: "uuid-generator", name: "UUID Generator", description: "Generate universally unique identifiers.", category: "dev", icon: Fingerprint, component: PlaceholderTool },
   { slug: "timestamp-converter", name: "Timestamp Converter", description: "Convert between timestamps and dates.", category: "dev", icon: Clock, component: PlaceholderTool },
@@ -258,7 +262,7 @@ export const tools: Tool[] = [
   { slug: "subtitle-generator", name: "Subtitle Generator", description: "Generate and edit SRT subtitle files.", category: "media", icon: Captions, component: PlaceholderTool },
 
   // Everyday Utilities
-  { slug: "qr-code-generator", name: "QR Code Generator", description: "Create and scan QR codes.", category: "util", icon: QrCode, component: PlaceholderTool },
+  { slug: "qr-code-generator", name: "QR Code Generator", description: "Create and scan QR codes.", category: "util", icon: QrCode, component: QrCodeGenerator },
   { slug: "barcode-generator", name: "Barcode Generator", description: "Create various types of barcodes.", category: "util", icon: Barcode, component: PlaceholderTool },
   { slug: "password-generator", name: "Password Generator", description: "Generate strong, secure passwords.", category: "util", icon: Key, component: PlaceholderTool },
   { slug: "ip-address-finder", name: "IP Address Finder", description: "Find your IP and get geo-location data.", category: "util", icon: Locate, component: PlaceholderTool },
