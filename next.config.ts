@@ -1,3 +1,4 @@
+
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
@@ -26,8 +27,6 @@ const nextConfig: NextConfig = {
         fs: false,
       };
     }
-     // Fix for fluent-ffmpeg
-    config.externals.push('fluent-ffmpeg');
 
     return config;
   },
