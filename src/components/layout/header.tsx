@@ -16,17 +16,15 @@ export default function Header() {
           <nav className="flex items-center gap-6 text-sm">
             <Link
               href="/#tools"
-              className="relative transition-colors text-foreground/60 hover:text-foreground/80"
+              className="relative transition-colors text-foreground/60 hover:text-foreground/80 nav-link"
             >
               Tools
-              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
             </Link>
             <Link
               href="#"
-              className="relative transition-colors text-foreground/60 hover:text-foreground/80"
+              className="relative transition-colors text-foreground/60 hover:text-foreground/80 nav-link"
             >
               Workflows
-               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
             </Link>
           </nav>
         </div>
