@@ -1,7 +1,7 @@
 "use server";
 
 import { aiChatSupport as aiChatSupportFlow } from "@/ai/flows/ai-chat-support";
-import { suggestTools as suggestToolsFlow } from "@/ai/flows/smart-tool-suggestions";
+import { suggestTools as suggestToolsFlow, SuggestToolsOutput } from "@/ai/flows/smart-tool-suggestions";
 
 export async function handleAiChatSupport(input: { query: string }) {
   try {
@@ -15,8 +15,7 @@ export async function handleAiChatSupport(input: { query: string }) {
 
 export async function handleSuggestTools(input: {
   userInput: string;
-  availableTools: string[];
-}) {
+}): Promise<SuggestToolsOutput> {
   try {
     const result = await suggestToolsFlow(input);
     return result;

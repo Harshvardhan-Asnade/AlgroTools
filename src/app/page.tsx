@@ -3,11 +3,15 @@
 
 import ToolDashboard from '@/components/tool-dashboard';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, BrainCircuit, Code, FileImage, FileText, LucideProps, Search, Layers, Settings2 } from 'lucide-react';
-import { ForwardRefExoticComponent, RefAttributes, useState } from 'react';
+import { ArrowRight, BrainCircuit, Code, FileImage, FileText, LucideProps, Search, Layers, Settings2, Sparkles, Wand2 } from 'lucide-react';
+import { ForwardRefExoticComponent, RefAttributes, useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
+import { handleSuggestTools } from './actions';
+import type { SuggestToolsOutput } from '@/ai/flows/smart-tool-suggestions';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useDebounce } from 'use-debounce';
 
 const FloatingIcon = ({ 
   Icon, 
@@ -18,7 +22,7 @@ const FloatingIcon = ({
  }) => {
   return (
     <div className={cn("absolute rounded-full p-3 border-2 border-cyan-400/30 animate-float", className)}>
-      <Icon className="w-10 h-10 text-cyan-400" />
+      <Icon className="w-12 h-12 text-cyan-400" />
     </div>
   );
 };
@@ -26,6 +30,9 @@ const FloatingIcon = ({
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [suggestions, setSuggestions] = useState<SuggestToolsOutput>([]);
+  const [loadingSuggestions, setLoadingSuggestions] = useState(false);
+  const [debouncedSearchQuery] = useDebounce(searchQuery, 300);
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
@@ -42,6 +49,21 @@ export default function Home() {
     const toolsSection = document.getElementById('tools');
     toolsSection?.scrollIntoView({ behavior: 'smooth' });
   }
+
+  const getSuggestions = useCallback(async (query: string) => {
+    if (query.length < 3) {
+      setSuggestions([]);
+      return;
+    }
+    setLoadingSuggestions(true);
+    const result = await handleSuggestTools({ userInput: query });
+    setSuggestions(result);
+    setLoadingSuggestions(false);
+  }, []);
+
+  useEffect(() => {
+    getSuggestions(debouncedSearchQuery);
+  }, [debouncedSearchQuery, getSuggestions]);
 
   return (
     <div className="container mx-auto px-4 py-12 md:py-16">
@@ -89,6 +111,45 @@ export default function Home() {
                   <Search className="h-5 w-5 text-muted-foreground group-hover:text-cyan-400 group-hover:[filter:drop-shadow(0_0_8px_#00E6FF)] transition-all" />
                 </Button>
             </form>
+            <AnimatePresence>
+              {(loadingSuggestions || suggestions.length > 0) && (
+                <motion.div 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="w-full max-w-2xl text-left"
+                >
+                  <div className="glass-card p-4 rounded-lg">
+                    <h3 className="text-sm font-semibold text-muted-foreground mb-2 flex items-center gap-2">
+                      <Wand2 className="w-4 h-4 text-primary" />
+                      Smart Suggestions
+                    </h3>
+                    {loadingSuggestions && (
+                      <div className="flex items-center gap-3 p-2">
+                        <div className="h-2 w-2 bg-foreground/50 rounded-full animate-pulse [animation-delay:-0.3s]"></div>
+                        <div className="h-2 w-2 bg-foreground/50 rounded-full animate-pulse [animation-delay:-0.15s]"></div>
+                        <div className="h-2 w-2 bg-foreground/50 rounded-full animate-pulse"></div>
+                      </div>
+                    )}
+                    {!loadingSuggestions && suggestions.length > 0 && (
+                       <div className="flex flex-col gap-1">
+                        {suggestions.map(suggestion => (
+                           <Link href={`/tools/${suggestion.slug}`} key={suggestion.slug}>
+                            <div className="flex justify-between items-center p-2 rounded-md hover:bg-accent transition-colors cursor-pointer">
+                              <div>
+                                <p className="font-semibold text-foreground/90">{suggestion.name}</p>
+                                <p className="text-sm text-muted-foreground">{suggestion.reason}</p>
+                              </div>
+                              <ArrowRight className="w-4 h-4 text-muted-foreground" />
+                            </div>
+                           </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
             <Link href="#tools" onClick={handleScroll} passHref>
               <Button size="lg" className="font-bold text-lg group transition-all duration-300 active:scale-95 bg-[#00AFFF] hover:bg-[#00AFFF] hover:shadow-[0_0_20px_#00E6FF]">
                   Explore Tools
