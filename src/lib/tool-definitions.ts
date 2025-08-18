@@ -224,7 +224,7 @@ export const tools: Tool[] = [
   { slug: "case-converter", name: "Case Converter", description: "Convert text to various cases (upper, lower, etc.).", category: "text", icon: CaseSensitive, component: CaseConverter, tag: "Working" },
   { slug: "remove-extra-spaces", name: "Remove Extra Spaces", description: "Trim whitespace and remove line breaks.", category: "text", icon: Scissors, component: RemoveExtraSpacesTool, tag: "Working" },
   { slug: "text-to-speech", name: "Text to Speech", description: "Convert text into spoken audio.", category: "text", icon: Volume2, component: PlaceholderTool },
-  { slug: "speech-to-text", name: "Speech to Text", description: "Transcribe audio into text.", category: "text", icon: Mic, component: AudioTranscriptsTool, tag: "Working" },
+  { slug: "audio-transcripts", name: "Audio Transcripts", description: "Transcribe audio into text.", category: "text", icon: Mic, component: AudioTranscriptsTool, tag: "Working" },
   { slug: "plagiarism-checker", name: "Plagiarism Checker", description: "Check for duplicate content.", category: "text", icon: Search, component: PlaceholderTool },
   { slug: "grammar-checker", name: "Grammar & Spell Checker", description: "Correct grammar and spelling mistakes.", category: "text", icon: CheckSquare, component: PlaceholderTool },
   { slug: "paraphraser", name: "Paraphraser / Rewriter", description: "Rewrite text with different tones or lengths.", category: "text", icon: Pen, component: PlaceholderTool },
