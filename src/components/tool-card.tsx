@@ -50,11 +50,13 @@ export default function ToolCard({ tool }: ToolCardProps) {
         )}
       >
         <CardHeader>
-          <div className="mb-3">
+          <div className="mb-3 transition-transform duration-300 group-hover:scale-110">
             <Icon className="w-8 h-8 text-primary/80 transition-all duration-300 group-hover:text-primary group-hover:[filter:drop-shadow(0_0_8px_hsl(var(--primary)))]" />
           </div>
-          <CardTitle className="text-lg font-bold text-foreground/90">{tool.name}</CardTitle>
-          <CardDescription className="mt-1 h-10 text-foreground/70">
+          <CardTitle className="text-lg font-bold text-foreground/90 transition-all duration-300 group-hover:text-primary">
+            {tool.name}
+          </CardTitle>
+          <CardDescription className="mt-1 h-10 text-foreground/70 transition-colors duration-300 group-hover:text-foreground/90">
             {tool.description}
           </CardDescription>
         </CardHeader>
