@@ -12,12 +12,6 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import { tools } from '@/lib/tool-definitions';
 
-const availableToolSchema = z.object({
-    slug: z.string().describe('The unique slug for the tool.'),
-    name: z.string().describe('The display name of the tool.'),
-    description: z.string().describe('A brief description of what the tool does.'),
-});
-
 const SuggestToolsInputSchema = z.object({
   userInput: z.string().describe('The current user input or activity description.'),
 });
@@ -33,7 +27,7 @@ const SuggestToolsOutputSchema = z.array(SuggestedToolSchema).describe('A list o
 export type SuggestToolsOutput = z.infer<typeof SuggestToolsOutputSchema>;
 
 export async function suggestTools(input: SuggestToolsInput): Promise<SuggestToolsOutput> {
-  if (!input.userInput) {
+  if (!input.userInput || input.userInput.length < 3) {
     return [];
   }
   return suggestToolsFlow(input);
@@ -55,7 +49,7 @@ Available Tools:
 ${JSON.stringify(allTools, null, 2)}
 
 Based on the user's input, identify the most relevant tools. For each suggestion, provide the tool's slug, name, and a very brief (3-5 word) reason for the suggestion.
-If the user's input is a greeting or doesn't seem related to any tool, return an empty array.
+If the user's input is a simple greeting, doesn't seem related to any tool, or is less than 3 characters long, return an empty array.
 Only return tools that are highly relevant to the user's query.
 `,
 });

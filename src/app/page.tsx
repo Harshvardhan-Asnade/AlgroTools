@@ -15,14 +15,16 @@ import { useDebounce } from 'use-debounce';
 
 const FloatingIcon = ({ 
   Icon, 
-  className 
+  className,
+  scale = 1
 }: { 
   Icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
   className?: string;
+  scale?: number;
  }) => {
   return (
-    <div className={cn("absolute rounded-full p-3 border-2 border-cyan-400/30", className)}>
-      <Icon className="w-12 h-12 text-cyan-400" />
+    <div className={cn("absolute rounded-full p-2 border border-cyan-400/20", className)} style={{ transform: `scale(${scale})`}}>
+      <Icon className="w-10 h-10 text-cyan-400/80" />
     </div>
   );
 };
@@ -32,7 +34,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [suggestions, setSuggestions] = useState<SuggestToolsOutput>([]);
   const [loadingSuggestions, setLoadingSuggestions] = useState(false);
-  const [debouncedSearchQuery] = useDebounce(searchQuery, 300);
+  const [debouncedSearchQuery] = useDebounce(searchQuery, 500);
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
@@ -51,14 +53,20 @@ export default function Home() {
   }
 
   const getSuggestions = useCallback(async (query: string) => {
-    if (query.length < 3) {
+    if (query.trim().length < 3) {
       setSuggestions([]);
       return;
     }
     setLoadingSuggestions(true);
-    const result = await handleSuggestTools({ userInput: query });
-    setSuggestions(result);
-    setLoadingSuggestions(false);
+    try {
+      const result = await handleSuggestTools({ userInput: query });
+      setSuggestions(result || []);
+    } catch (error) {
+      console.error("Failed to fetch suggestions:", error);
+      setSuggestions([]); // Clear suggestions on error
+    } finally {
+      setLoadingSuggestions(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -72,12 +80,12 @@ export default function Home() {
         {/* Floating Icons Background */}
         <div className="absolute inset-0 -z-10 animate-float">
           <div className="relative h-full w-full">
-            <FloatingIcon Icon={FileText} className="top-[5%] left-[10%] animation-delay-[-2s] scale-90" />
-            <FloatingIcon Icon={FileImage} className="top-[15%] right-[5%] animation-delay-[-4s] scale-110" />
-            <FloatingIcon Icon={Code} className="bottom-[20%] left-[15%]" />
-            <FloatingIcon Icon={BrainCircuit} className="bottom-[10%] right-[20%] animation-delay-[-6s] scale-95" />
-            <FloatingIcon Icon={Layers} className="top-[50%] left-[2%] animation-delay-[-1s] scale-125" />
-            <FloatingIcon Icon={Settings2} className="top-[60%] right-[10%] animation-delay-[-5s] scale-125" />
+            <FloatingIcon Icon={FileText} className="top-[5%] left-[10%] animation-delay-[-2s]" scale={0.9} />
+            <FloatingIcon Icon={FileImage} className="top-[15%] right-[8%]" scale={1.1} />
+            <FloatingIcon Icon={Code} className="bottom-[20%] left-[15%] animation-delay-[-4s]" />
+            <FloatingIcon Icon={BrainCircuit} className="bottom-[10%] right-[20%] animation-delay-[-6s]" scale={0.95} />
+            <FloatingIcon Icon={Layers} className="top-[50%] left-[5%] animation-delay-[-1s]" scale={1.25} />
+            <FloatingIcon Icon={Settings2} className="top-[60%] right-[12%] animation-delay-[-5s]" scale={1.25} />
           </div>
         </div>
 
