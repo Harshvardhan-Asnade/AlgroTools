@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import type { Tool } from "@/lib/tool-definitions";
 import { cn } from "@/lib/utils";
+import React from "react";
 
 interface ToolCardProps {
   tool: Tool;
@@ -14,17 +15,43 @@ interface ToolCardProps {
 
 export default function ToolCard({ tool }: ToolCardProps) {
   const Icon = tool.icon;
+  const cardRef = React.useRef<HTMLDivElement>(null);
+
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    const { left, top, width, height } = card.getBoundingClientRect();
+    const x = (e.clientX - left - width / 2) / (width/2);
+    const y = (e.clientY - top - height / 2) / (height/2);
+    
+    card.style.transform = `perspective(1000px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) scale3d(1.05, 1.05, 1.05)`;
+    card.style.transition = "none";
+  };
+
+  const onMouseLeave = () => {
+    const card = cardRef.current;
+    if (!card) return;
+    
+    card.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg) scale3d(1, 1, 1)`;
+    card.style.transition = "transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)";
+  };
+
+
   return (
-    <Link href={`/tools/${tool.slug}`} className="group block h-full">
+    <Link href={`/tools/${tool.slug}`} className="group block h-full [perspective:1000px]">
       <Card
+        ref={cardRef}
+        onMouseMove={onMouseMove}
+        onMouseLeave={onMouseLeave}
         className={cn(
-          "h-full transition-all duration-200 ease-out glass-card",
-          "hover:shadow-primary/20 hover:-translate-y-1 hover:border-primary/50"
+          "h-full transition-all duration-500 ease-out glass-card will-change-transform",
+          "hover:shadow-primary/20 hover:border-primary/50"
         )}
       >
         <CardHeader>
           <div className="mb-3">
-            <Icon className="w-8 h-8 text-primary/80 group-hover:text-primary transition-colors duration-200" />
+            <Icon className="w-8 h-8 text-primary/80 transition-all duration-300 group-hover:text-primary group-hover:[filter:drop-shadow(0_0_8px_hsl(var(--primary)))]" />
           </div>
           <CardTitle className="text-lg font-bold text-foreground/90">{tool.name}</CardTitle>
           <CardDescription className="mt-1 h-10 text-foreground/70">
