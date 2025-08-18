@@ -101,6 +101,9 @@ import JsonFormatter from "@/components/tools/json-formatter";
 import Base64Tool from "@/components/tools/base64-tool";
 import QrCodeGenerator from "@/components/tools/qr-code-generator";
 import ImageToPdfTool from "@/components/tools/image-to-pdf";
+import RemoveExtraSpacesTool from "@/components/tools/remove-extra-spaces";
+import UrlEncoderDecoder from "@/components/tools/url-encoder-decoder";
+import TimestampConverter from "@/components/tools/timestamp-converter";
 
 type IconComponent = ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
 
@@ -217,7 +220,7 @@ export const tools: Tool[] = [
   // Text Tools
   { slug: "word-counter", name: "Word Counter", description: "Count words, characters, and lines in text.", category: "text", icon: Type, component: WordCounter },
   { slug: "case-converter", name: "Case Converter", description: "Convert text to various cases (upper, lower, etc.).", category: "text", icon: CaseSensitive, component: CaseConverter },
-  { slug: "remove-extra-spaces", name: "Remove Extra Spaces", description: "Trim whitespace and remove line breaks.", category: "text", icon: Scissors, component: PlaceholderTool },
+  { slug: "remove-extra-spaces", name: "Remove Extra Spaces", description: "Trim whitespace and remove line breaks.", category: "text", icon: Scissors, component: RemoveExtraSpacesTool },
   { slug: "text-to-speech", name: "Text to Speech", description: "Convert text into spoken audio.", category: "text", icon: Volume2, component: PlaceholderTool },
   { slug: "speech-to-text", name: "Speech to Text", description: "Transcribe audio into text.", category: "text", icon: Mic, component: PlaceholderTool },
   { slug: "plagiarism-checker", name: "Plagiarism Checker", description: "Check for duplicate content.", category: "text", icon: Search, component: PlaceholderTool },
@@ -235,9 +238,9 @@ export const tools: Tool[] = [
   { slug: "xml-formatter", name: "XML Formatter", description: "Format and validate XML data.", category: "dev", icon: Braces, component: PlaceholderTool },
   { slug: "regex-tester", name: "Regex Tester", description: "Test regular expressions.", category: "dev", icon: Regex, component: PlaceholderTool },
   { slug: "base64-encoder", name: "Base64 Encoder/Decoder", description: "Encode and decode Base64 data.", category: "dev", icon: Waypoints, component: Base64Tool },
-  { slug: "url-encoder", name: "URL Encoder/Decoder", description: "Encode and decode URL components.", category: "dev", icon: LinkIcon, component: PlaceholderTool },
+  { slug: "url-encoder", name: "URL Encoder/Decoder", description: "Encode and decode URL components.", category: "dev", icon: LinkIcon, component: UrlEncoderDecoder },
   { slug: "uuid-generator", name: "UUID Generator", description: "Generate universally unique identifiers.", category: "dev", icon: Fingerprint, component: PlaceholderTool },
-  { slug: "timestamp-converter", name: "Timestamp Converter", description: "Convert between timestamps and dates.", category: "dev", icon: Clock, component: PlaceholderTool },
+  { slug: "timestamp-converter", name: "Timestamp Converter", description: "Convert between timestamps and dates.", category: "dev", icon: Clock, component: TimestampConverter },
   { slug: "code-minifier", name: "Code Minifier", description: "Minify JS, CSS, and HTML code.", category: "dev", icon: Minimize, component: PlaceholderTool },
   { slug: "code-beautifier", name: "Code Beautifier", description: "Format and beautify code.", category: "dev", icon: Paintbrush, component: PlaceholderTool },
   { slug: "online-compiler", name: "Online Compiler/REPL", description: "Run code in various languages online.", category: "dev", icon: Terminal, component: PlaceholderTool },
