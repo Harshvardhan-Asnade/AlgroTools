@@ -56,7 +56,7 @@ export default function ToolCard({ tool }: ToolCardProps) {
               <Icon className="w-8 h-8 text-primary/80 transition-all duration-300 group-hover:text-primary group-hover:[filter:drop-shadow(0_0_8px_hsl(var(--primary)))]" />
             </div>
             {tool.tag && (
-              <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+              <Badge variant="secondary" className="border-green-400/20 bg-green-400/10 text-green-400">
                 {tool.tag}
               </Badge>
             )}
