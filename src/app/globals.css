@@ -101,5 +101,7 @@
 }
 
 .animate-gradient-xy {
-  animation: gradient-xy 10s ease infinite;
+  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--primary)));
+  background-size: 200% auto;
+  animation: gradient-xy 5s linear infinite;
 }
