@@ -1,13 +1,33 @@
+
 "use client";
 
-import { useState, useMemo } from "react";
-import { Input } from "@/components/ui/input";
+import { useState, useMemo, useEffect } from "react";
 import { tools, toolCategoryNames, ToolCategory } from "@/lib/tool-definitions";
 import ToolCategorySection from "./tool-category-section";
-import { Search } from "lucide-react";
 
 export default function ToolDashboard() {
   const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const searchInput = document.querySelector('#hero-search') as HTMLInputElement;
+    if (searchInput) {
+      const handleSearch = () => {
+        setSearchQuery(searchInput.value);
+      };
+      // This is a bit of a hack to listen to changes from the hero input
+      // A better solution would be to use a shared state management (e.g. Zustand, Redux, or Context)
+      const observer = new MutationObserver(handleSearch);
+      const heroForm = document.querySelector('#hero-form');
+      if (heroForm) {
+        const inputHandler = (e: Event) => setSearchQuery((e.target as HTMLInputElement).value)
+        searchInput.addEventListener('input', inputHandler);
+
+        return () => {
+          searchInput.removeEventListener('input', inputHandler);
+        }
+      }
+    }
+  }, []);
 
   const filteredTools = useMemo(() => {
     if (!searchQuery) return tools;
@@ -27,17 +47,6 @@ export default function ToolDashboard() {
 
   return (
     <div id="tools" className="mt-9">
-      <div className="relative mb-8">
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-        <Input
-          type="search"
-          placeholder="Find a tool — e.g., 'PDF to Word', 'JSON formatter'"
-          className="w-full pl-12 text-lg h-14 rounded-full bg-white/5 backdrop-blur-sm border-white/10 focus-visible:ring-offset-0 focus-visible:ring-2 focus-visible:ring-primary/80 transition-shadow"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </div>
-
       <div className="space-y-12">
         {Object.entries(groupedTools).length > 0 ? (
           Object.entries(groupedTools).map(([category, tools]) => (

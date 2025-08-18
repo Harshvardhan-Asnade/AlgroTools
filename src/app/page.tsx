@@ -35,26 +35,12 @@ export default function Home() {
     elem?.scrollIntoView({
       behavior: "smooth",
     });
-
-    const searchInput = document.querySelector('#tools input[type="search"]') as HTMLInputElement;
-    if (searchInput) {
-      searchInput.value = searchQuery;
-      searchInput.dispatchEvent(new Event('input', { bubbles: true }));
-      searchInput.focus();
-    }
   };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const toolsSection = document.getElementById('tools');
     toolsSection?.scrollIntoView({ behavior: 'smooth' });
-
-    const searchInput = document.querySelector('#tools input[type="search"]') as HTMLInputElement;
-    if (searchInput) {
-      searchInput.value = searchQuery;
-      searchInput.dispatchEvent(new Event('input', { bubbles: true }));
-      searchInput.focus();
-    }
   }
 
   return (
@@ -83,11 +69,12 @@ export default function Home() {
           Convert, edit, and iterate. Fast. Friendly. Magical.
         </p>
         <div className="mt-8 flex w-full max-w-2xl flex-col items-center justify-center gap-4">
-            <form onSubmit={handleSearchSubmit} className="relative w-full group">
+            <form id="hero-form" onSubmit={handleSearchSubmit} className="relative w-full group">
                 <Input
+                id="hero-search"
                 type="search"
                 placeholder="Find your tool..."
-                className="w-full pl-4 pr-16 text-lg h-14 rounded-full bg-white/5 backdrop-blur-sm border-white/10 focus-visible:ring-offset-0 focus-visible:ring-2 focus-visible:ring-primary/80 transition-shadow"
+                className="w-full pl-4 pr-12 text-lg h-14 rounded-full bg-white/5 backdrop-blur-sm border-white/10 focus-visible:ring-offset-0 focus-visible:ring-2 focus-visible:ring-primary/80 transition-shadow"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -113,4 +100,3 @@ export default function Home() {
     </div>
   );
 }
-
