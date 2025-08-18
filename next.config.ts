@@ -18,6 +18,19 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  webpack: (config, { isServer }) => {
+    // Fixes npm packages that depend on `fs` module
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+      };
+    }
+     // Fix for fluent-ffmpeg
+    config.externals.push('fluent-ffmpeg');
+
+    return config;
+  },
 };
 
 export default nextConfig;

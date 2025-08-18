@@ -2,6 +2,7 @@
 
 import { aiChatSupport as aiChatSupportFlow } from "@/ai/flows/ai-chat-support";
 import { suggestTools as suggestToolsFlow, SuggestToolsOutput } from "@/ai/flows/smart-tool-suggestions";
+import { audioToText as audioToTextFlow } from "@/ai/flows/audio-transcription";
 
 export async function handleAiChatSupport(input: { query: string }) {
   try {
@@ -22,5 +23,15 @@ export async function handleSuggestTools(input: {
   } catch (error) {
     console.error("Suggest Tools Error:", error);
     return [];
+  }
+}
+
+export async function handleAudioTranscription(input: { audioDataUri: string }) {
+  try {
+    const result = await audioToTextFlow(input);
+    return result;
+  } catch (error) {
+    console.error("Audio Transcription Error:", error);
+    return { transcript: "Sorry, could not transcribe the audio. Please try again." };
   }
 }
