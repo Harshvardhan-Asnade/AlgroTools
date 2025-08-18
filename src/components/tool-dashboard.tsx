@@ -28,11 +28,11 @@ export default function ToolDashboard() {
   return (
     <div id="tools">
       <div className="relative mb-8">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
         <Input
           type="search"
-          placeholder="Search for a tool..."
-          className="w-full pl-10 text-lg h-14"
+          placeholder="Find a tool — e.g., 'PDF to Word', 'JSON formatter'"
+          className="w-full pl-12 text-lg h-14 rounded-full bg-background/20 backdrop-blur-sm border-white/10"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
