@@ -18,7 +18,7 @@ const FloatingIcon = ({
  }) => {
   return (
     <div className={cn("absolute rounded-full p-3 border-2 border-cyan-400/30 animate-float", className)}>
-      <Icon className="w-8 h-8 text-cyan-400" />
+      <Icon className="w-10 h-10 text-cyan-400" />
     </div>
   );
 };
@@ -50,12 +50,12 @@ export default function Home() {
         {/* Floating Icons Background */}
         <div className="absolute inset-0 -z-10">
           <div className="relative h-full w-full">
-            <FloatingIcon Icon={FileText} className="top-[10%] left-[15%] animation-delay-[-2s] scale-90" />
-            <FloatingIcon Icon={FileImage} className="top-[20%] right-[10%] animation-delay-[-4s] scale-110" />
-            <FloatingIcon Icon={Code} className="bottom-[25%] left-[20%]" />
-            <FloatingIcon Icon={BrainCircuit} className="bottom-[15%] right-[25%] animation-delay-[-6s] scale-95" />
-            <FloatingIcon Icon={Layers} className="top-[55%] left-[5%] animation-delay-[-1s] scale-80" />
-            <FloatingIcon Icon={Settings2} className="top-[60%] right-[15%] animation-delay-[-5s] scale-100" />
+            <FloatingIcon Icon={FileText} className="top-[5%] left-[10%] animation-delay-[-2s] scale-90" />
+            <FloatingIcon Icon={FileImage} className="top-[15%] right-[5%] animation-delay-[-4s] scale-110" />
+            <FloatingIcon Icon={Code} className="bottom-[20%] left-[15%]" />
+            <FloatingIcon Icon={BrainCircuit} className="bottom-[10%] right-[20%] animation-delay-[-6s] scale-95" />
+            <FloatingIcon Icon={Layers} className="top-[50%] left-[2%] animation-delay-[-1s] scale-80" />
+            <FloatingIcon Icon={Settings2} className="top-[60%] right-[10%] animation-delay-[-5s] scale-100" />
           </div>
         </div>
 
