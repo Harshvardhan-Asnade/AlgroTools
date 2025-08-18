@@ -10,42 +10,42 @@
     --card-foreground: 210 40% 98%;
     --popover: 222 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 263 70% 68%; /* Bright Violet */
+    --primary: 263 92% 65%; /* Neon Purple */
     --primary-foreground: 210 40% 98%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 180 100% 50%; /* Neon Cyan */
+    --accent: 187 100% 50%; /* Neon Blue */
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 24.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 180 100% 50%;
+    --ring: 187 100% 50%;
     --radius: 0.8rem;
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 210 40% 98%;
-    --card: 224 71% 6%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 263 70% 68%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 180 100% 50%;
-    --accent-foreground: 210 40% 98%;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 5.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 263 92% 65%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 187 100% 50%;
+    --accent-foreground: 240 5.9% 10%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 24.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 180 100% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 187 100% 50%;
   }
 }
 
@@ -55,10 +55,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-color: #0A0A1A;
-    background-image:
-      radial-gradient(circle at 15% 50%, hsl(var(--accent) / 0.1), transparent 30%),
-      radial-gradient(circle at 85% 30%, hsl(var(--primary) / 0.1), transparent 30%);
+    background: linear-gradient(180deg, #1A0033 0%, #0D0D0D 100%);
   }
 }
 

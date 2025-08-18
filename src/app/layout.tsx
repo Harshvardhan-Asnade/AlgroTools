@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Inter, Space_Grotesk } from 'next/font/google';
+import { Inter, Poppins } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/layout/header';
@@ -8,7 +8,11 @@ import Footer from '@/components/layout/footer';
 import AiChatWidget from '@/components/ai/ai-chat-widget';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
-const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-mono' });
+const poppins = Poppins({ 
+  subsets: ['latin'], 
+  variable: '--font-mono',
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'] 
+});
 
 export const metadata: Metadata = {
   title: 'AlgroTools - Your All-in-One Toolkit',
@@ -26,7 +30,7 @@ export default function RootLayout({
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
           inter.variable,
-          spaceGrotesk.variable
+          poppins.variable
         )}
       >
         <div className="relative flex min-h-screen flex-col">

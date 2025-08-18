@@ -19,14 +19,13 @@ export default function ToolCard({ tool }: ToolCardProps) {
       <Card
         className={cn(
           "h-full transition-all duration-300 ease-in-out",
-          "bg-slate-900/40 backdrop-blur-md border-cyan-400/20",
-          "hover:border-cyan-400/50 hover:-translate-y-2 hover:shadow-2xl hover:shadow-cyan-500/10",
-          "transform-gpu [transform-style:preserve-3d] hover:[transform:rotateX(5deg)_rotateY(-5deg)]"
+          "bg-black/20 backdrop-blur-md border-white/10 shadow-lg",
+          "hover:border-primary/50 hover:shadow-primary/20 hover:-translate-y-1"
         )}
       >
         <CardHeader>
           <div className="mb-3">
-            <Icon className="w-8 h-8 text-cyan-400 group-hover:text-violet-400 transition-colors" />
+            <Icon className="w-8 h-8 text-accent group-hover:text-primary transition-colors" />
           </div>
           <CardTitle className="text-lg font-mono font-bold text-slate-50">{tool.name}</CardTitle>
           <CardDescription className="mt-1 h-10 text-slate-400">
