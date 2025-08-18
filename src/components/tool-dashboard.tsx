@@ -26,13 +26,13 @@ export default function ToolDashboard() {
   }, [filteredTools]);
 
   return (
-    <div id="tools">
+    <div id="tools" className="mt-9">
       <div className="relative mb-8">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
         <Input
           type="search"
           placeholder="Find a tool — e.g., 'PDF to Word', 'JSON formatter'"
-          className="w-full pl-12 text-lg h-14 rounded-full bg-background/20 backdrop-blur-sm border-white/10"
+          className="w-full pl-12 text-lg h-14 rounded-full bg-white/5 backdrop-blur-sm border-white/10 focus-visible:ring-offset-0 focus-visible:ring-2 focus-visible:ring-primary/80 transition-shadow"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
