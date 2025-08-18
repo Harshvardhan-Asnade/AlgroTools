@@ -95,7 +95,6 @@ export default function ImageToPdfTool() {
             if (i > 0) {
               doc.addPage();
             }
-            // Pass the image source directly and let jsPDF handle the format.
             doc.addImage(img.src, '', x, y, newWidth, newHeight);
             resolve();
           };
@@ -161,7 +160,6 @@ export default function ImageToPdfTool() {
                     src={imageFile.preview}
                     alt={imageFile.file.name}
                     className="w-full h-full object-cover rounded-md"
-                    onLoad={() => URL.revokeObjectURL(imageFile.preview)}
                   />
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <Button
