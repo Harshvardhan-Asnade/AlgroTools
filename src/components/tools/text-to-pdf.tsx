@@ -4,8 +4,8 @@ import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Loader2, Download, FileText } from "lucide-react";
-import { textToPdf } from "@/ai/flows/text-to-pdf";
 import { useToast } from "@/hooks/use-toast";
+import jsPDF from 'jspdf';
 
 export default function TextToPdfTool() {
   const [text, setText] = useState("");
@@ -27,8 +27,25 @@ export default function TextToPdfTool() {
     setPdfUri(null);
 
     try {
-      const result = await textToPdf({ text });
-      setPdfUri(result.pdfDataUri);
+      // PDF generation logic moved to the client
+      const doc = new jsPDF();
+      const pageHeight = doc.internal.pageSize.height;
+      const margin = 10;
+      const lines = doc.splitTextToSize(text, doc.internal.pageSize.width - margin * 2);
+      let y = margin;
+
+      lines.forEach((line: string) => {
+          if (y + 10 > pageHeight - margin) {
+              doc.addPage();
+              y = margin;
+          }
+          doc.text(line, margin, y);
+          y += 7;
+      });
+
+      const pdfDataUri = doc.output('datauristring');
+      setPdfUri(pdfDataUri);
+
       toast({
         title: "Conversion Successful",
         description: "Your PDF is ready for download.",

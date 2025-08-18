@@ -2,7 +2,6 @@
 
 import { aiChatSupport as aiChatSupportFlow } from "@/ai/flows/ai-chat-support";
 import { suggestTools as suggestToolsFlow, SuggestToolsOutput } from "@/ai/flows/smart-tool-suggestions";
-import { textToPdf as textToPdfFlow } from "@/ai/flows/text-to-pdf";
 
 export async function handleAiChatSupport(input: { query: string }) {
   try {
@@ -23,15 +22,5 @@ export async function handleSuggestTools(input: {
   } catch (error) {
     console.error("Suggest Tools Error:", error);
     return [];
-  }
-}
-
-export async function handleTextToPdf(input: { text: string }) {
-  try {
-    const result = await textToPdfFlow(input);
-    return result;
-  } catch (error) {
-    console.error("Text to PDF Error:", error);
-    throw new Error("Failed to generate PDF.");
   }
 }
