@@ -8,6 +8,7 @@ import {
 import type { Tool } from "@/lib/tool-definitions";
 import { cn } from "@/lib/utils";
 import React from "react";
+import { Badge } from "@/components/ui/badge";
 
 interface ToolCardProps {
   tool: Tool;
@@ -50,8 +51,15 @@ export default function ToolCard({ tool }: ToolCardProps) {
         )}
       >
         <CardHeader>
-          <div className="mb-3 transition-transform duration-300 group-hover:scale-110">
-            <Icon className="w-8 h-8 text-primary/80 transition-all duration-300 group-hover:text-primary group-hover:[filter:drop-shadow(0_0_8px_hsl(var(--primary)))]" />
+          <div className="flex justify-between items-start">
+            <div className="mb-3 transition-transform duration-300 group-hover:scale-110">
+              <Icon className="w-8 h-8 text-primary/80 transition-all duration-300 group-hover:text-primary group-hover:[filter:drop-shadow(0_0_8px_hsl(var(--primary)))]" />
+            </div>
+            {tool.tag && (
+              <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+                {tool.tag}
+              </Badge>
+            )}
           </div>
           <CardTitle className="text-lg font-bold text-foreground/90 transition-all duration-300 group-hover:text-primary">
             {tool.name}

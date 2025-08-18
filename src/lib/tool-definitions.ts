@@ -137,17 +137,18 @@ export interface Tool {
   category: ToolCategory;
   icon: IconComponent;
   component: ComponentType<any>;
+  tag?: string;
 }
 
 export const tools: Tool[] = [
   // PDF & Document Tools
-  { slug: "text-to-pdf", name: "Text to PDF", description: "Convert raw text into a downloadable PDF file.", category: "pdf", icon: FileText, component: TextToPdfTool },
+  { slug: "text-to-pdf", name: "Text to PDF", description: "Convert raw text into a downloadable PDF file.", category: "pdf", icon: FileText, component: TextToPdfTool, tag: "Working" },
   { slug: "convert-to-pdf", name: "Convert to PDF", description: "Convert various file formats to PDF.", category: "pdf", icon: FileText, component: PlaceholderTool },
   { slug: "pdf-to-word", name: "PDF to Word", description: "Convert PDF files to editable Word documents.", category: "pdf", icon: FileText, component: PlaceholderTool },
   { slug: "word-to-pdf", name: "Word to PDF", description: "Convert Word documents to PDF files.", category: "pdf", icon: FileText, component: PlaceholderTool },
   { slug: "email-to-pdf", name: "Email to PDF", description: "Save your emails as PDF files.", category: "pdf", icon: Mail, component: PlaceholderTool },
   { slug: "html-to-pdf", name: "HTML to PDF", description: "Convert web pages to PDF documents.", category: "pdf", icon: Code, component: PlaceholderTool },
-  { slug: "image-to-pdf", name: "Image to PDF", description: "Convert JPG, PNG, and other images to PDF.", category: "pdf", icon: FileImage, component: ImageToPdfTool },
+  { slug: "image-to-pdf", name: "Image to PDF", description: "Convert JPG, PNG, and other images to PDF.", category: "pdf", icon: FileImage, component: ImageToPdfTool, tag: "Working" },
   { slug: "markdown-to-pdf", name: "Markdown to PDF", description: "Convert Markdown files to PDF.", category: "pdf", icon: BookText, component: PlaceholderTool },
   { slug: "pdf-to-csv", name: "PDF to CSV", description: "Extract data from PDFs into CSV files.", category: "pdf", icon: Rows, component: PlaceholderTool },
   { slug: "pdf-to-html", name: "PDF to HTML", description: "Convert PDFs to HTML web pages.", category: "pdf", icon: Code, component: PlaceholderTool },
