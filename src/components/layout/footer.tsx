@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="flex flex-col items-center gap-4 md:flex-row md:gap-2">
           <Logo className="h-6 w-6" />
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-            Built by your friendly neighborhood AI.
+            Built by Harshvardhan Asnade
           </p>
         </div>
         <div className="flex items-center gap-4">
