@@ -4,7 +4,7 @@ import { Logo } from '@/components/logo';
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <div className="mr-4 flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
@@ -16,15 +16,17 @@ export default function Header() {
           <nav className="flex items-center gap-6 text-sm">
             <Link
               href="/#tools"
-              className="transition-colors hover:text-foreground/80 text-foreground/60"
+              className="relative transition-colors text-foreground/60 hover:text-foreground/80"
             >
               Tools
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
             </Link>
             <Link
               href="#"
-              className="transition-colors hover:text-foreground/80 text-foreground/60"
+              className="relative transition-colors text-foreground/60 hover:text-foreground/80"
             >
               Workflows
+               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
             </Link>
           </nav>
         </div>
