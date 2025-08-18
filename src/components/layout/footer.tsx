@@ -24,7 +24,7 @@ export default function Footer() {
           </Link>
         </div>
         <p className="text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} OmniToolbox. All Rights Reserved.
+          © {new Date().getFullYear()} AlgroTools. All Rights Reserved.
         </p>
       </div>
     </footer>

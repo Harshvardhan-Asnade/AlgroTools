@@ -14,7 +14,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'OmniToolbox - Your All-in-One Toolkit',
+  title: 'AlgroTools - Your All-in-One Toolkit',
   description: 'A comprehensive suite of tools for PDF, images, text, development, and more. Powered by AI.',
 };
 

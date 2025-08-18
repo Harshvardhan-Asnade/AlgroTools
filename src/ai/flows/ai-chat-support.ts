@@ -29,7 +29,7 @@ const prompt = ai.definePrompt({
   name: 'aiChatSupportPrompt',
   input: {schema: AIChatSupportInputSchema},
   output: {schema: AIChatSupportOutputSchema},
-  prompt: `You are an AI chatbot assistant designed to help users understand the tools and functions available in OmniToolbox.
+  prompt: `You are an AI chatbot assistant designed to help users understand the tools and functions available in AlgroTools.
 
   Provide clear, concise, and helpful answers to user queries about the tools and their functionalities.
 

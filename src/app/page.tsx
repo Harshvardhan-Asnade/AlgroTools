@@ -8,7 +8,7 @@ export default function Home() {
       <section className="text-center py-16 md:py-24 flex flex-col items-center">
         <div className="mb-3">
           {/* Brand placeholder */}
-          <span className="text-sm font-bold text-primary">OMNIBOX</span>
+          <span className="text-sm font-bold text-primary">AlgroAI</span>
         </div>
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground">
           All your digital tools.

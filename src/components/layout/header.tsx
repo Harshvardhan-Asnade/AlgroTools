@@ -10,7 +10,7 @@ export default function Header() {
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Logo className="h-6 w-6" />
             <span className="font-bold sm:inline-block">
-              OmniToolbox
+              AlgroTools
             </span>
           </Link>
           <nav className="flex items-center gap-6 text-sm">
