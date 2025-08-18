@@ -17,8 +17,8 @@ const FloatingIcon = ({
   className?: string;
  }) => {
   return (
-    <div className={cn("absolute rounded-full p-2 border-2 border-cyan-400/30 animate-float", className)}>
-      <Icon className="w-6 h-6 text-cyan-400" />
+    <div className={cn("absolute rounded-full p-3 border-2 border-cyan-400/30 animate-float", className)}>
+      <Icon className="w-8 h-8 text-cyan-400" />
     </div>
   );
 };
