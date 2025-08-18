@@ -1,69 +1,79 @@
+
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Loader2, Download, FileText } from "lucide-react";
+import { Loader2, Download, FileText, ZoomIn, ZoomOut, RefreshCw } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import jsPDF from 'jspdf';
+import { Slider } from "@/components/ui/slider";
+import { Label } from "@/components/ui/label";
+import { useDebounce } from "use-debounce";
 
 export default function TextToPdfTool() {
-  const [text, setText] = useState("");
+  const [text, setText] = useState("Start typing or paste your text here... Your text will be converted into a PDF document.");
+  const [fontSize, setFontSize] = useState(12);
   const [isLoading, setIsLoading] = useState(false);
   const [pdfUri, setPdfUri] = useState<string | null>(null);
   const { toast } = useToast();
+  
+  const [debouncedText] = useDebounce(text, 300);
+  const [debouncedFontSize] = useDebounce(fontSize, 300);
 
-  const handleConvert = async () => {
-    if (!text.trim()) {
-      toast({
-        title: "Input required",
-        description: "Please enter some text to convert.",
-        variant: "destructive",
-      });
-      return;
-    }
-
+  const generatePdf = useCallback(() => {
     setIsLoading(true);
-    setPdfUri(null);
-
     try {
-      // PDF generation logic moved to the client
-      const doc = new jsPDF();
-      const pageHeight = doc.internal.pageSize.height;
-      const margin = 10;
-      const lines = doc.splitTextToSize(text, doc.internal.pageSize.width - margin * 2);
-      let y = margin;
+      const doc = new jsPDF({ orientation: 'p', unit: 'px', format: 'a4' });
+      const docWidth = doc.internal.pageSize.getWidth();
+      const margin = 20;
+      const usableWidth = docWidth - margin * 2;
+      
+      doc.setFontSize(debouncedFontSize);
+      
+      const lines = doc.splitTextToSize(debouncedText, usableWidth);
+      
+      let cursorY = margin;
+      const lineHeight = doc.getLineHeight(debouncedText) / doc.internal.scaleFactor;
 
       lines.forEach((line: string) => {
-          if (y + 10 > pageHeight - margin) {
-              doc.addPage();
-              y = margin;
-          }
-          doc.text(line, margin, y);
-          y += 7;
+        if (cursorY + lineHeight > doc.internal.pageSize.getHeight() - margin) {
+          doc.addPage();
+          cursorY = margin;
+        }
+        doc.text(line, margin, cursorY);
+        cursorY += lineHeight;
       });
 
       const pdfDataUri = doc.output('datauristring');
       setPdfUri(pdfDataUri);
 
-      toast({
-        title: "Conversion Successful",
-        description: "Your PDF is ready for download.",
-      });
     } catch (error) {
-      console.error("PDF Conversion Error:", error);
+      console.error("PDF Generation Error:", error);
       toast({
-        title: "Conversion Failed",
-        description: "An unexpected error occurred. Please try again.",
+        title: "Preview Failed",
+        description: "Could not generate PDF preview. Please try again.",
         variant: "destructive",
       });
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [debouncedText, debouncedFontSize, toast]);
+
+  useEffect(() => {
+    generatePdf();
+  }, [generatePdf]);
+
 
   const handleDownload = () => {
-    if (!pdfUri) return;
+    if (!pdfUri) {
+        toast({
+            title: "PDF not ready",
+            description: "Please wait for the PDF to be generated before downloading.",
+            variant: "destructive",
+        });
+        return;
+    };
     const link = document.createElement("a");
     link.href = pdfUri;
     link.download = "converted-document.pdf";
@@ -72,54 +82,53 @@ export default function TextToPdfTool() {
     document.body.removeChild(link);
   };
   
-  const handleNewConversion = () => {
-    setText("");
-    setPdfUri(null);
-  }
-
-  if (pdfUri) {
-    return (
-        <div className="flex flex-col items-center justify-center text-center p-8 min-h-[300px]">
-            <FileText className="w-16 h-16 text-primary mb-4" />
-            <h2 className="text-2xl font-bold text-foreground mb-3">Your PDF is Ready!</h2>
-            <p className="text-muted-foreground mb-6">Click the button below to download your file.</p>
-            <div className="flex gap-4">
-                <Button onClick={handleDownload} size="lg">
-                    <Download className="mr-2 h-5 w-5" />
-                    Download PDF
-                </Button>
-                <Button onClick={handleNewConversion} size="lg" variant="outline">
-                    New Conversion
-                </Button>
-            </div>
-        </div>
-    )
-  }
-
   return (
-    <div className="flex flex-col gap-6">
-      <Textarea
-        placeholder="Start typing or paste your text here... Your text will be converted into a PDF document."
-        className="min-h-[350px] text-base"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        disabled={isLoading}
-      />
-      <div className="flex justify-center">
-        <Button
-          onClick={handleConvert}
-          disabled={isLoading || !text.trim()}
-          size="lg"
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-              Converting...
-            </>
-          ) : (
-            "Convert to PDF"
-          )}
-        </Button>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
+            <Label htmlFor="font-size-slider">Font Size: {fontSize}pt</Label>
+            <Slider
+                id="font-size-slider"
+                min={8}
+                max={32}
+                step={1}
+                value={[fontSize]}
+                onValueChange={(value) => setFontSize(value[0])}
+            />
+        </div>
+        <Textarea
+          placeholder="Start typing or paste your text here..."
+          className="min-h-[450px] text-base flex-grow"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+        />
+        <div className="flex justify-center">
+            <Button onClick={handleDownload} size="lg" disabled={!pdfUri || isLoading}>
+                <Download className="mr-2 h-5 w-5" />
+                Download PDF
+            </Button>
+        </div>
+      </div>
+      <div className="flex flex-col gap-4">
+        <Label>Live Preview</Label>
+        <div className="relative border rounded-lg bg-background/50 aspect-[210/297] min-h-[500px] flex-grow">
+            {isLoading && (
+                <div className="absolute inset-0 flex items-center justify-center bg-background/50 z-10">
+                    <Loader2 className="h-8 w-8 animate-spin text-primary" />
+                </div>
+            )}
+            {pdfUri ? (
+                <iframe 
+                    src={pdfUri} 
+                    className="w-full h-full rounded-lg"
+                    title="PDF Preview"
+                />
+            ) : (
+                <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                    <p>PDF preview will appear here.</p>
+                </div>
+            )}
+        </div>
       </div>
     </div>
   );
