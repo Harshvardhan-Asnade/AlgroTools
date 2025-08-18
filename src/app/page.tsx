@@ -3,7 +3,7 @@
 
 import ToolDashboard from '@/components/tool-dashboard';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, BrainCircuit, Code, FileImage, FileText, LucideProps, Search } from 'lucide-react';
+import { ArrowRight, BrainCircuit, Code, FileImage, FileText, LucideProps, Search, Layers, Settings2 } from 'lucide-react';
 import { ForwardRefExoticComponent, RefAttributes, useState } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -17,7 +17,7 @@ const FloatingIcon = ({
   className?: string;
  }) => {
   return (
-    <div className={cn("absolute rounded-full p-2 border-2 border-cyan-400/30 animate-pulse shadow-[0_0_20px_2px] shadow-cyan-400/30", className)}>
+    <div className={cn("absolute rounded-full p-2 border-2 border-cyan-400/30 animate-float shadow-[0_0_20px_2px] shadow-cyan-400/30", className)}>
       <Icon className="w-6 h-6 text-cyan-400" />
     </div>
   );
@@ -54,6 +54,8 @@ export default function Home() {
             <FloatingIcon Icon={FileImage} className="top-[20%] right-[10%] animation-delay-[-4s] scale-110" />
             <FloatingIcon Icon={Code} className="bottom-[25%] left-[20%]" />
             <FloatingIcon Icon={BrainCircuit} className="bottom-[15%] right-[25%] animation-delay-[-6s] scale-95" />
+            <FloatingIcon Icon={Layers} className="top-[55%] left-[5%] animation-delay-[-1s] scale-80" />
+            <FloatingIcon Icon={Settings2} className="top-[60%] right-[15%] animation-delay-[-5s] scale-100" />
           </div>
         </div>
 
