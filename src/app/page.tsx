@@ -83,15 +83,22 @@ export default function Home() {
           Convert, edit, and iterate. Fast. Friendly. Magical.
         </p>
         <div className="mt-8 flex w-full max-w-2xl flex-col items-center justify-center gap-4">
-            <form onSubmit={handleSearchSubmit} className="relative w-full">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+            <form onSubmit={handleSearchSubmit} className="relative w-full group">
                 <Input
                 type="search"
                 placeholder="Find your tool..."
-                className="w-full pl-12 text-lg h-14 rounded-full bg-white/5 backdrop-blur-sm border-white/10 focus-visible:ring-offset-0 focus-visible:ring-2 focus-visible:ring-primary/80 transition-shadow"
+                className="w-full pl-4 pr-16 text-lg h-14 rounded-full bg-white/5 backdrop-blur-sm border-white/10 focus-visible:ring-offset-0 focus-visible:ring-2 focus-visible:ring-primary/80 transition-shadow"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 />
+                 <Button
+                  type="submit"
+                  size="icon"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10"
+                  variant="ghost"
+                >
+                  <Search className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                </Button>
             </form>
             <Link href="#tools" onClick={handleScroll} passHref>
               <Button size="lg" className="font-bold text-lg group transition-transform active:scale-95">
@@ -106,3 +113,4 @@ export default function Home() {
     </div>
   );
 }
+
