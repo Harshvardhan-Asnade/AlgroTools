@@ -95,6 +95,7 @@ import type { LucideProps } from "lucide-react";
 import type { ComponentType, ForwardRefExoticComponent, RefAttributes } from "react";
 import WordCounter from "@/components/tools/word-counter";
 import PlaceholderTool from "@/components/tools/placeholder-tool";
+import TextToPdfTool from "@/components/tools/text-to-pdf";
 
 type IconComponent = ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
 
@@ -132,6 +133,7 @@ export interface Tool {
 
 export const tools: Tool[] = [
   // PDF & Document Tools
+  { slug: "text-to-pdf", name: "Text to PDF", description: "Convert raw text into a downloadable PDF file.", category: "pdf", icon: FileText, component: TextToPdfTool },
   { slug: "convert-to-pdf", name: "Convert to PDF", description: "Convert various file formats to PDF.", category: "pdf", icon: FileText, component: PlaceholderTool },
   { slug: "pdf-to-word", name: "PDF to Word", description: "Convert PDF files to editable Word documents.", category: "pdf", icon: FileText, component: PlaceholderTool },
   { slug: "word-to-pdf", name: "Word to PDF", description: "Convert Word documents to PDF files.", category: "pdf", icon: FileText, component: PlaceholderTool },
