@@ -18,15 +18,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  experimental: {
-    turbo: {
-      css: {
-        modules: {
-          xcss: false,
-        },
-      },
-    },
-  },
 };
 
 export default nextConfig;
