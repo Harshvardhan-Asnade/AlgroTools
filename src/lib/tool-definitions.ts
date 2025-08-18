@@ -100,6 +100,7 @@ import CaseConverter from "@/components/tools/case-converter";
 import JsonFormatter from "@/components/tools/json-formatter";
 import Base64Tool from "@/components/tools/base64-tool";
 import QrCodeGenerator from "@/components/tools/qr-code-generator";
+import ImageToPdfTool from "@/components/tools/image-to-pdf";
 
 type IconComponent = ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
 
@@ -143,7 +144,7 @@ export const tools: Tool[] = [
   { slug: "word-to-pdf", name: "Word to PDF", description: "Convert Word documents to PDF files.", category: "pdf", icon: FileText, component: PlaceholderTool },
   { slug: "email-to-pdf", name: "Email to PDF", description: "Save your emails as PDF files.", category: "pdf", icon: Mail, component: PlaceholderTool },
   { slug: "html-to-pdf", name: "HTML to PDF", description: "Convert web pages to PDF documents.", category: "pdf", icon: Code, component: PlaceholderTool },
-  { slug: "image-to-pdf", name: "Image to PDF", description: "Convert JPG, PNG, and other images to PDF.", category: "pdf", icon: FileImage, component: PlaceholderTool },
+  { slug: "image-to-pdf", name: "Image to PDF", description: "Convert JPG, PNG, and other images to PDF.", category: "pdf", icon: FileImage, component: ImageToPdfTool },
   { slug: "markdown-to-pdf", name: "Markdown to PDF", description: "Convert Markdown files to PDF.", category: "pdf", icon: BookText, component: PlaceholderTool },
   { slug: "pdf-to-csv", name: "PDF to CSV", description: "Extract data from PDFs into CSV files.", category: "pdf", icon: Rows, component: PlaceholderTool },
   { slug: "pdf-to-html", name: "PDF to HTML", description: "Convert PDFs to HTML web pages.", category: "pdf", icon: Code, component: PlaceholderTool },
