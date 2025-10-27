@@ -29,6 +29,14 @@ export default function Header() {
             >
               Tools
             </Link>
+            <SignedIn>
+              <Link
+                href="/dashboard/history"
+                className="transition-colors text-foreground/60 hover:text-foreground/80"
+              >
+                History
+              </Link>
+            </SignedIn>
             <Link
               href="#"
               className="transition-colors text-foreground/60 hover:text-foreground/80"

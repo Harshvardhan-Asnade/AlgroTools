@@ -145,6 +145,20 @@ export default async function ProtectedPage() {
 - ✅ Client components marked with "use client"
 - ✅ Modal mode for better UX
 
+## 🚀 Deploying to Vercel
+
+When deploying to Vercel, you MUST add environment variables to your Vercel project:
+
+### Required Steps:
+1. Go to Vercel Dashboard → Your Project → Settings → Environment Variables
+2. Add these two variables:
+   - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+   - `CLERK_SECRET_KEY`
+3. Enable them for Production, Preview, and Development
+4. Redeploy your application
+
+📄 See `VERCEL_DEPLOYMENT.md` for detailed instructions.
+
 ## 🎉 You're All Set!
 
 Start your dev server and begin testing authentication. Clerk handles all the complex parts automatically!

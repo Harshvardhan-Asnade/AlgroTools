@@ -7,6 +7,7 @@ import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import AiChatWidget from '@/components/ai/ai-chat-widget';
 import { ClerkProvider } from '@clerk/nextjs';
+import { UserSync } from '@/components/auth/user-sync';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 const spaceGrotesk = Space_Grotesk({ 
@@ -34,6 +35,7 @@ export default function RootLayout({
             spaceGrotesk.variable
           )}
         >
+          <UserSync />
           <div className="relative flex min-h-screen flex-col">
             <Header />
             <main className="flex-1">{children}</main>
