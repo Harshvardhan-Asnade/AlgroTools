@@ -1,10 +1,19 @@
+"use client";
+
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Logo } from '@/components/logo';
+import { 
+  SignInButton, 
+  SignUpButton, 
+  UserButton, 
+  SignedIn, 
+  SignedOut 
+} from '@clerk/nextjs';
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm border-b border-border/40">
       <div className="container flex h-14 max-w-screen-2xl items-center">
         <div className="mr-4 flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
@@ -13,7 +22,7 @@ export default function Header() {
               AlgroTools
             </span>
           </Link>
-          <nav className="flex items-center gap-6 text-sm">
+          <nav className="hidden md:flex items-center gap-6 text-sm">
             <Link
               href="/#tools"
               className="transition-colors text-foreground/60 hover:text-foreground/80"
@@ -29,8 +38,17 @@ export default function Header() {
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <Button variant="ghost">Log In</Button>
-          <Button>Sign Up</Button>
+          <SignedOut>
+            <SignInButton mode="modal">
+              <Button variant="ghost">Log In</Button>
+            </SignInButton>
+            <SignUpButton mode="modal">
+              <Button>Sign Up</Button>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
         </div>
       </div>
     </header>

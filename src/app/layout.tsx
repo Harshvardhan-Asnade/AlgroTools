@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import AiChatWidget from '@/components/ai/ai-chat-widget';
+import { ClerkProvider } from '@clerk/nextjs';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 const spaceGrotesk = Space_Grotesk({ 
@@ -24,22 +25,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
-      <body
-        className={cn(
-          'min-h-screen bg-background font-sans antialiased',
-          inter.variable,
-          spaceGrotesk.variable
-        )}
-      >
-        <div className="relative flex min-h-screen flex-col">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
-        <AiChatWidget />
-        <Toaster />
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" className="dark">
+        <body
+          className={cn(
+            'min-h-screen bg-background font-sans antialiased',
+            inter.variable,
+            spaceGrotesk.variable
+          )}
+        >
+          <div className="relative flex min-h-screen flex-col">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+          <AiChatWidget />
+          <Toaster />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
